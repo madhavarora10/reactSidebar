@@ -2,14 +2,13 @@ import { Sidebar, Menu, MenuItem, useProSidebar, SubMenu } from "react-pro-sideb
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { RxCross1 } from 'react-icons/rx'
 import { item } from '../json/nav'
-import {AiFillHome,AiFillHeart,AiFillDatabase} from 'react-icons/ai'
 
 function Navbar() {
   const { collapseSidebar, toggleSidebar, collapsed, toggled, broken, rtl } = useProSidebar();
 
   return (
     <div id="app" style={({ height: "100vh" }, { display: "flex" })}>
-      <Sidebar breakPoint="sm" style={{ height: "100vh" }}>
+      <Sidebar defaultCollapsed={true} transitionDuration={500}  style={{ height: "100vh" }}>
         <Menu >
           <div style={{
             display: 'flex',
@@ -27,9 +26,7 @@ function Navbar() {
 
             /> :
               <RxCross1 style={{
-
                 fontSize: "20px",
-
               }}
                 onClick={() => {
                   collapseSidebar();
@@ -40,20 +37,27 @@ function Navbar() {
           <h2>Admin</h2>
 
           {item.map((item, index) => {
+            
             if (item.type === 2)
               return (
-                <SubMenu label={item.label}>
+                <SubMenu  icon={item.icon} label={item.label}>
+                
                   {item.dropdown.map((item2, index) => (
                     <MenuItem key={index} >
-                      {item2.icon}
+              
                       {item2.label}
                     </MenuItem>
                   ))}
-                </SubMenu>)
+                </SubMenu>
+                )
 
 
             if (item.type === 1)
-              return (<MenuItem key={index}>{item.label}</MenuItem>)
+              return (
+                  <MenuItem icon={item.icon} key={index}>{item.label}</MenuItem>
+              
+               )
+              
             return 0;
           })}
 
